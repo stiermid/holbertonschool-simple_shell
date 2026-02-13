@@ -25,7 +25,7 @@ int execute_command(char **args, char **envp, char **argv)
 		}
 	}
 	else if (child_pid < 0)
-		error("fork failed]n");
+		perror("fork failed]n");
 	else
 		wait(&status);
 
