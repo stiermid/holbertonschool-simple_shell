@@ -60,7 +60,7 @@ int execute_command(char **args, char **envp, char **argv)
  */
 char *get_command_path(char *command)
 {
-	const char *path_env = getenv("PATH");
+	const char *path_env = _getenv("PATH");
 	char *path, *token, *full_path;
 
 	if (!path_env || !command)
