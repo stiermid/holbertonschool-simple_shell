@@ -1,10 +1,11 @@
 #include "simple_shell.h"
 
 /**
- * execute_command - executes pro
+ * execute_command - fork and execute a program
  * @args: argumets to pass execve
  * @envp: environtment
- * @argv: argument vector
+ * @argv: main argument vector
+ *
  * Return: 1 on success
  */
 int execute_command(char **args, char **envp, char **argv)

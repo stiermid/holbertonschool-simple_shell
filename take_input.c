@@ -1,8 +1,9 @@
 #include "simple_shell.h"
 
 /**
- * read_line - receives input
- * Return: parsed input
+ * read_line - reads a line of input from standart input
+ *
+ * Return: a pinter to the string or NULL if an error occurs or EOF is reached
  */
 char *read_line(void)
 {

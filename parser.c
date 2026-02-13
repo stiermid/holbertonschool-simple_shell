@@ -1,8 +1,9 @@
 #include "simple_shell.h"
 
 /**
- * split_line - a TODO
- * @line: line
+ * split_line - as the name suggests
+ * @line: the string breaking up
+ *
  * Return: list of arguments
  */
 char **split_line(char *line)
