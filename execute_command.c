@@ -44,10 +44,14 @@ int execute_command(char **args, char **envp, char **argv)
 		}
 	}
 	else if (child_pid < 0)
-		perror("fork failed]n");
+	{
+		perror("fork failed\n");
+		free(path);
+	}
 	else
 	{
 		wait(&status);
+		free(path);
 		if (WIFEXITED(status))
 			return (WEXITSTATUS(status));
 	}
