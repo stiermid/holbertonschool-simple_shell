@@ -27,7 +27,7 @@ int main(__attribute__((unused)) int argc, char **argv,	char **envp)
 		execute_command(args, envp, argv);
 
 		free(line);
-		free(args);
+		free_args(args);
 	}
 
 	return (0);
