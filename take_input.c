@@ -1,24 +1,19 @@
 #include "simple_shell.h"
 
 /**
- * take_input - receives input
+ * read_line - receives input
  * Return: parsed input
  */
-char *take_input()
+char *read_line(void)
 {
 	char *buffer = NULL;
 	size_t len = 0;
-	ssize_t read;
 
-	read = getline(&buffer, &len, stdin);
-	if (read == -1)
+	if (getline(&buffer, &len, stdin) == -1)
 	{
 		free(buffer);
 		return (NULL);
 	}
-
-	if (read > 0 && buffer[read - 1] == '\n')
-		buffer[read - 1] = '\0';
 
 	return (buffer);
 }
