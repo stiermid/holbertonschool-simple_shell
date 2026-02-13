@@ -13,6 +13,7 @@ int main(__attribute__((unused)) int argc, char **argv,	char **envp)
 {
 	char *line;
 	char **args;
+	int status = 0;
 
 	for (;;)
 	{
@@ -24,12 +25,13 @@ int main(__attribute__((unused)) int argc, char **argv,	char **envp)
 			break;
 
 		args = split_line(line);
-		execute_command(args, envp, argv);
+		if (args && args[0])
+			status = execute_command(args, envp, argv);
 
 		free(line);
 		free_args(args);
 	}
 
-	return (0);
+	return (status);
 }
 

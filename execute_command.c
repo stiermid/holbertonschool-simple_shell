@@ -30,7 +30,7 @@ int execute_command(char **args, char **envp, char **argv)
 	if (path == NULL)
 	{
 		fprintf(stderr, "%s: 1: %s: not found\n", argv[0], args[0]);
-		return (1);
+		return (127);
 	}
 
 	child_pid = fork();
@@ -40,13 +40,17 @@ int execute_command(char **args, char **envp, char **argv)
 		{
 			perror(argv[0]);
 			free(path);
-			exit(EXIT_FAILURE);
+			_exit(127);
 		}
 	}
 	else if (child_pid < 0)
 		perror("fork failed]n");
 	else
+	{
 		wait(&status);
+		if (WIFEXITED(status))
+			return (WEXITSTATUS(status));
+	}
 
 	free(path);
 	return (1);
@@ -68,6 +72,9 @@ char *get_command_path(char *command)
 
 	path = strdup(path_env);
 	token = strtok(path, ":");
+
+	if (!path)
+		return (NULL);
 
 	while (token != NULL)
 	{
