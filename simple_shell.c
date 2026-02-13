@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stddef.h>
+#include <sys/wait.h>
 
 /**
  * main - runs the program
@@ -14,23 +15,43 @@
  *
  * Return: 0 on success
  */
-int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv,
-		char **envp)
+int main(__attribute__((unused)) int argc, char **argv,	char **envp)
 {
 	char *command;
 	char *argv2[2];
+	pid_t child_pid;
+	int status;
 
 	for (;;)
 	{
 		printf("$ ");
+		fflush(stdout);
 
 		command = take_input();
+
+		if (command == NULL)
+			return (0);
 
 		argv2[0] = command;
 		argv2[1] = NULL;
 
-		if (execve(command, argv2, envp) == -1)
-			printf("%s: execve failed\n", argv[0]);
+		child_pid = fork();
+		if (child_pid == -1)
+		{
+			printf("fork failed\n");
+			continue;
+		}
+
+		if (child_pid == 0)
+		{
+			if (execve(command, argv2, envp) == -1)
+			{
+				printf("%s: No such file or directory\n", argv[0]);
+				exit(EXIT_FAILURE);
+			}
+		}
+		else
+			wait(&status);
 	}
 
 	return (0);
